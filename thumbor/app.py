@@ -13,7 +13,7 @@ import tornado.web
 from libthumbor.url import Url
 
 from thumbor.handlers.blacklist import BlacklistHandler
-from thumbor.handlers.healthcheck import HealthcheckHandler
+#  from thumbor.handlers.healthcheck import HealthcheckHandler
 from thumbor.handlers.image_resource import ImageResourceHandler
 from thumbor.handlers.imaging import ImagingHandler
 from thumbor.handlers.upload import ImageUploadHandler
@@ -26,9 +26,14 @@ class ThumborServiceApp(tornado.web.Application):
         super(ThumborServiceApp, self).__init__(self.get_handlers(), debug=self.debug)
 
     def get_handlers(self):
-        handlers = [
-            (self.context.config.HEALTHCHECK_ROUTE, HealthcheckHandler),
-        ]
+        handlers = []
+        for router in self.context.modules.importer.routers:
+            handlers.extend(
+                [
+                    (route.url, route.handler, route.initialize)
+                    for route in router(self.context).get_routes()
+                ]
+            )
 
         if self.context.config.UPLOAD_ENABLED:
             # Handler to upload images (POST).

@@ -302,7 +302,9 @@ Config.define(
     "GC_INTERVAL", None, "Set garbage collection interval in seconds", "Performance",
 )
 
-Config.define("HEALTHCHECK_ROUTE", r"/healthcheck", "Healthcheck route.", "Healthcheck")
+Config.define(
+    "HEALTHCHECK_ROUTE", r"/healthcheck/?", "Healthcheck route.", "Healthcheck"
+)
 
 # METRICS OPTIONS
 Config.define("STATSD_HOST", None, "Host to send statsd instrumentation to", "Metrics")
@@ -749,6 +751,15 @@ Config.define(
     "The amount of time to waut before shutting down all io, after the server has been stopped",
     "Server",
 )
+
+# ROUTERS
+Config.define(
+    "ROUTERS",
+    ["thumbor.routers.healthcheck.HealthcheckRouter"],
+    "Routers are responsible for adding routes to thumbor app.",
+    "Routers",
+)
+
 
 Config.define(
     "APP_CLASS",
