@@ -755,7 +755,11 @@ Config.define(
 # ROUTERS
 Config.define(
     "ROUTERS",
-    ["thumbor.routers.healthcheck.HealthcheckRouter"],
+    [
+        "thumbor.routers.healthcheck.HealthcheckRouter",
+        "thumbor.routers.upload.UploadRouter",
+        "thumbor.routers.blacklist.BlacklistRouter",
+    ],
     "Routers are responsible for adding routes to thumbor app.",
     "Routers",
 )

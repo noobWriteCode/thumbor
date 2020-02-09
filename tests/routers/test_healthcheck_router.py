@@ -16,7 +16,7 @@ from thumbor.routers.healthcheck import HealthcheckRouter
 from thumbor.testing import TestCase
 
 
-class BaseRouterTestCase(TestCase):
+class HealthcheckRouterTestCase(TestCase):
     def test_can_get_routes(self):
         routes = HealthcheckRouter(self.context).get_routes()
 
